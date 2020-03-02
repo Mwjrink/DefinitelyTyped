@@ -11,26 +11,26 @@ interface SessionOptions {
         includeServers: 'all' | 'custom';
         transportPolicy: 'all' | 'relay';
         customServers: {
-            urls: string | string[];
+            urls: string | Array<string>;
             username?: string;
             credential?: string;
         }[];
     };
 }
 
-export function useOpenTok(): [
+declare function useOpenTok(): [
     {
         isSessionInitialized: boolean;
         connectionId: string | undefined;
-        connections: OT.Connection[];
+        connections: Array<OT.Connection>;
 
         isSessionConnected: boolean;
 
         session: OT.Session;
-        subscribers: OT.Subscriber[];
+        subscribers: Array<OT.Subscriber>;
         publisher: Record<string, OT.Publisher>;
 
-        streams: OT.Stream[];
+        streams: Array<OT.Stream>;
     },
     {
         initSessionAndConnect: (_: {
@@ -62,5 +62,7 @@ export function useOpenTok(): [
         unsubscribe: (_: OT.Subscriber) => void;
 
         sendSignal: (_: { type?: string; data?: string }) => void;
-    },
+    }
 ];
+
+export = useOpenTok;
